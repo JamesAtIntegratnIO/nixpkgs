@@ -11,6 +11,7 @@ lib.recurseIntoAttrs
     autoload = callPackage ./autoload.nix { };
     convert = callPackage ./convert.nix { };
     inhibit-gnome = callPackage ./inhibit-gnome.nix { };
+    inhibit-suspend = callPackage ./inhibit-suspend.nix { };
     mpris = callPackage ./mpris.nix { };
     mpv-playlistmanager = callPackage ./mpv-playlistmanager.nix { };
     mpvacious = callPackage ./mpvacious.nix { };
