@@ -1,16 +1,19 @@
 { lib
 , callPackage
 , config
+, fetchFromGitHub
+, newScope
 }:
 
-let mkLuaScript = callPackage ./mkLuaScript.nix { };
-in lib.recurseIntoAttrs
-  ({
-    acompressor = callPackage ./acompressor.nix { inherit mkLuaScript; };
+lib.makeScope newScope (self:
+  let callPackage = self.newScope { inherit mkLuaScript; };
+      mkLuaScript = callPackage ./mkLuaScript.nix { };
+  in {
+    acompressor = callPackage ./acompressor.nix { };
     autocrop = callPackage ./autocrop.nix { };
     autodeint = callPackage ./autodeint.nix { };
     autoload = callPackage ./autoload.nix { };
-    chapterskip = callPackage ./chapterskip.nix { inherit mkLuaScript; };
+    chapterskip = callPackage ./chapterskip.nix { };
     convert = callPackage ./convert.nix { };
     inhibit-gnome = callPackage ./inhibit-gnome.nix { };
     mpris = callPackage ./mpris.nix { };
@@ -28,7 +31,7 @@ in lib.recurseIntoAttrs
     webtorrent-mpv-hook = callPackage ./webtorrent-mpv-hook.nix { };
     cutter = callPackage ./cutter.nix { };
   }
-  // (callPackage ./occivink.nix { inherit mkLuaScript; }))
+  // (import ./occivink.nix { inherit lib fetchFromGitHub mkLuaScript; }))
   // lib.optionalAttrs config.allowAliases {
   youtube-quality = throw "'youtube-quality' is no longer maintained, use 'quality-menu' instead"; # added 2023-07-14
 }
