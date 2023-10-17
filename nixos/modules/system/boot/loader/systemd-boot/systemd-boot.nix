@@ -51,6 +51,7 @@ let
 
   checkedSystemdBootBuilder = pkgs.runCommand "systemd-boot" {
     nativeBuildInputs = [ pkgs.mypy ];
+    preferLocalBuild = true;
   } ''
     install -m755 ${systemdBootBuilder} $out
     mypy \
