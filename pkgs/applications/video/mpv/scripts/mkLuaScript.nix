@@ -9,9 +9,13 @@ lib.makeOverridable (
     preferLocalBuild = true;
 
     outputHashMode = "recursive";
-    installPhase = "install -m644 -Dt $out/share/mpv/scripts ${scriptPath}";
-    passthru.scriptName = with lib; last (splitString "/" scriptPath);
+    installPhase = ''
+      runHook preInstall
+      install -m644 -Dt $out/share/mpv/scripts ${scriptPath}
+      runHook postInstall
+    '';
 
+    passthru.scriptName = with lib; last (splitString "/" scriptPath);
     meta.platforms = lib.platforms.all;
   } args)
 )
