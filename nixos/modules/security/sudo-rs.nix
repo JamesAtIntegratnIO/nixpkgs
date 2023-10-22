@@ -208,6 +208,8 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
+    security.sudo.enable = mkDefault false;
+
     security.sudo-rs.extraRules =
       let
         defaultRule = { users ? [], groups ? [], opts ? [] }: [ {
