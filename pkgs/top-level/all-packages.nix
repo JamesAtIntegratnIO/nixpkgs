@@ -6820,9 +6820,6 @@ with pkgs;
     ceph-client;
   ceph-dev = ceph;
 
-  inherit (callPackages ../tools/security/certmgr { })
-    certmgr certmgr-selfsigned;
-
   cfdg = callPackage ../tools/graphics/cfdg { };
 
   cglm = callPackage ../development/libraries/cglm { };
